@@ -17,6 +17,7 @@ const LeftSideBar = () => {
   const { logout, onlineUsers } = useContext(AuthContext)
 
   const [input, setInput] = useState("")
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate()
 
   const filteredUsers = input
@@ -55,77 +56,66 @@ const LeftSideBar = () => {
             className="max-w-36 object-contain"
           />
 
-          <div className="relative group">
+           <div className="relative">
+  {/* Menu Button */}
+  <button
+    onClick={() => setIsMenuOpen(!isMenuOpen)}
+    className="
+      w-10 h-10
+      rounded-xl
+      bg-[#e8eef7]
+      flex items-center justify-center
+      shadow-[4px_4px_8px_#c5ccd6,-4px_-4px_8px_#ffffff]
+      active:shadow-[inset_3px_3px_6px_#c5ccd6,inset_-3px_-3px_6px_#ffffff]
+      transition-all duration-150
+    "
+  >
+    <img
+      src={assets.menu_icon}
+      alt="Menu"
+      className="w-5 brightness-0 opacity-50"
+    />
+  </button>
 
-            {/* Menu Button */}
-            <button
-              className="
-                w-10 h-10
-                rounded-xl
-                bg-[#e8eef7]
-                flex items-center justify-center
-                shadow-[4px_4px_8px_#c5ccd6,-4px_-4px_8px_#ffffff]
-                active:shadow-[inset_3px_3px_6px_#c5ccd6,inset_-3px_-3px_6px_#ffffff]
-                transition-all duration-150
-              "
-            >
-              <img
-                src={assets.menu_icon}
-                alt="Menu"
-                className="w-5 brightness-0 opacity-50"
-              />
-            </button>
+  {/* Dropdown - Only shows when isMenuOpen is true */}
+  {isMenuOpen && (
+    <div
+      className="
+        absolute
+        top-12
+        right-0
+        z-30
+        w-40
+        p-3
+        rounded-2xl
+        bg-[#e8eef7]
+        shadow-[7px_7px_15px_#c5ccd6,-7px_-7px_15px_#ffffff]
+      "
+    >
+      <p
+        onClick={() => {
+          setIsMenuOpen(false); // Close menu when clicked
+          navigate('/profile');
+        }}
+        className="px-3 py-2 rounded-xl text-sm text-[#3c506d] cursor-pointer hover:bg-[#dde5f0]"
+      >
+        Edit profile
+      </p>
 
-            {/* Dropdown */}
-            <div
-              className="
-                absolute
-                top-12
-                right-0
-                z-30
-                w-40
-                p-3
-                rounded-2xl
-                bg-[#e8eef7]
-                shadow-[7px_7px_15px_#c5ccd6,-7px_-7px_15px_#ffffff]
-                hidden
-                group-hover:block
-              "
-            >
+      <hr className="my-2 border-[#d1d8e2]" />
 
-              <p
-                onClick={() => navigate('/profile')}
-                className="
-                  px-3 py-2
-                  rounded-xl
-                  text-sm
-                  text-[#3c506d]
-                  cursor-pointer
-                  hover:bg-[#dde5f0]
-                "
-              >
-                Edit profile
-              </p>
-
-              <hr className="my-2 border-[#d1d8e2]" />
-
-              <p
-                onClick={logout}
-                className="
-                  px-3 py-2
-                  rounded-xl
-                  text-sm
-                  text-[#3c506d]
-                  cursor-pointer
-                  hover:bg-[#dde5f0]
-                "
-              >
-                Logout
-              </p>
-
-            </div>
-
-          </div>
+      <p
+        onClick={() => {
+          setIsMenuOpen(false); // Close menu when clicked
+          logout();
+        }}
+        className="px-3 py-2 rounded-xl text-sm text-[#3c506d] cursor-pointer hover:bg-[#dde5f0]"
+      >
+        Logout
+      </p>
+    </div>
+  )}
+</div>
 
         </div>
 
