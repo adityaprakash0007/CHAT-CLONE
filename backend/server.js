@@ -13,7 +13,7 @@ const server = http.createServer(app);
 // Define your allowed origins (Local + Production)
 const allowedOrigins = [
     "http://localhost:5173", 
-     "chat-clone-use.vercel.app"
+     "https://chat-clone-use.vercel.app"  
 ];
 
 // Socket.IO setup
